@@ -1,0 +1,146 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dear Future Me</title>
+
+    <style>
+        body {
+            background-color: #fff1f5;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 30px;
+            color: #513747;
+        }
+
+        .box {
+            background-color: white;
+            max-width: 550px;
+            margin: auto;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 4px 12px #e8cbd8;
+        }
+
+        h1 {
+            color: #c45d87;
+        }
+
+        p {
+            line-height: 1.6;
+        }
+
+        input, textarea {
+            width: 90%;
+            padding: 10px;
+            margin: 10px;
+            border: 1px solid #e5b8cb;
+            border-radius: 8px;
+            font-size: 15px;
+        }
+
+        textarea {
+            height: 150px;
+        }
+
+        button {
+            background-color: #c45d87;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #a94770;
+        }
+
+        #message {
+            color: #a94770;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="box">
+        <h1>Dear Future Me 💌</h1>
+
+        <p>
+            Hey! This is a little letter from the person
+            you are today to the person you will become.
+        </p>
+
+        <input type="text" id="name"
+        placeholder="Your name">
+
+        <p>What are you feeling today?</p>
+
+        <select id="mood">
+            <option>Happy 😊</option>
+            <option>Hopeful 🌷</option>
+            <option>Confused 🌧️</option>
+            <option>Excited ✨</option>
+        </select>
+
+        <p>Write a letter to your future self:</p>
+
+        <textarea id="letter"
+        placeholder="What is happening in your life right now? What do you hope for?"></textarea>
+
+        <p>One dream I want to achieve:</p>
+
+        <input type="text" id="dream"
+        placeholder="Write your dream here">
+
+        <br><br>
+
+        <button onclick="saveLetter()">Save my letter ♡</button>
+
+        <p id="message"></p>
+
+        <hr>
+
+        <h2>Your little time capsule 🌸</h2>
+
+        <div id="result">
+            Your letter will appear here.
+        </div>
+    </div>
+
+    <script>
+        function saveLetter() {
+            var name = document.getElementById("name").value;
+            var mood = document.getElementById("mood").value;
+            var letter = document.getElementById("letter").value;
+            var dream = document.getElementById("dream").value;
+
+            if (name == "" || letter == "") {
+                document.getElementById("message").innerText =
+                    "Please enter your name and write a letter first!";
+                return;
+            }
+
+            document.getElementById("result").innerHTML =
+                "<h3>Dear Future " + name + ",</h3>" +
+                "<p>Today, I feel " + mood + "</p>" +
+                "<p>" + letter.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\n/g, "<br>") + "</p>" +
+                "<p><b>My dream:</b> " + dream.replace(/</g, "&lt;").replace(/>/g, "&gt;") + "</p>" +
+                "<p>With love, your past self ♡</p>";
+
+            localStorage.setItem("myLetter", JSON.stringify({
+                name: name,
+                mood: mood,
+                letter: letter,
+                dream: dream
+            }));
+
+            document.getElementById("message").innerText =
+                "Your letter has been saved! 💗";
+        }
+    </script>
+
+</body>
+</html>
